@@ -1,9 +1,12 @@
 package com.sachinsingh.jobsearch.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,12 +15,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "job_posts")
@@ -34,9 +38,18 @@ public class JobPost {
 	private JobCategory jobCategory;
 	
 	@Column(name = "salary")
+	@AttributeOverrides({
+			@AttributeOverride(name = "highest", column = @Column(name = "highest_salary")),
+			@AttributeOverride(name = "lowest", column = @Column(name = "lowest_salary"))
+	})
 	private Range<Double> salary;
 	
+	
 	@Column(name = "experience")
+	@AttributeOverrides({
+		@AttributeOverride(name = "highest", column = @Column(name = "highest_experience")),
+		@AttributeOverride(name = "lowest", column = @Column(name = "lowest_experience"))
+	})
 	private Range<Integer> experience;
 	
 	@Column(name = "job_type", nullable = false)
@@ -44,12 +57,12 @@ public class JobPost {
 	private JobType jobType;
 	
 	@Column(name = "posted_date", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date postedDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate postedDate;
 	
 	@Column(name = "expiry_date", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date expiryDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate expiryDate;
 	
 	@Column(name = "vacancies")
 	private Integer vacancies;
@@ -61,7 +74,6 @@ public class JobPost {
 	private Location location;
 	
 	@OneToMany(mappedBy = "job")
-	@JoinColumn(name = "job_id", nullable = false)
 	private List<JobApplicantApplication> applicants = new ArrayList<>();
 	
 	@ManyToOne(optional = false)
@@ -115,19 +127,35 @@ public class JobPost {
 		this.jobType = jobType;
 	}
 
-	public Date getPostedDate() {
+	public LocalDate getPostedDate() {
 		return postedDate;
 	}
 
-	public void setPostedDate(Date postedDate) {
+	public void setPostedDate(LocalDate postedDate) {
 		this.postedDate = postedDate;
 	}
 
-	public Date getExpiryDate() {
+	public List<JobApplicantApplication> getApplicants() {
+		return applicants;
+	}
+
+	public void setApplicants(List<JobApplicantApplication> applicants) {
+		this.applicants = applicants;
+	}
+
+	public Employer getPostedBy() {
+		return postedBy;
+	}
+
+	public void setPostedBy(Employer postedBy) {
+		this.postedBy = postedBy;
+	}
+
+	public LocalDate getExpiryDate() {
 		return expiryDate;
 	}
 
-	public void setExpiryDate(Date expiryDate) {
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 
@@ -154,7 +182,5 @@ public class JobPost {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
-	
 	
 }

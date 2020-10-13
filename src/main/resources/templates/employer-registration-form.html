@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}"></title>
+<template th:replace="~{ui-component/bootstrap}"></template>
+</head>
+
+<body>
+	<nav th:replace="~{navbar}"></nav>
+	<div class="container" th:if="${alert}">
+		<div class="row m-4">
+			<div class="col-12">
+				<div th:class="${alertClass}" th:text="${alertMessage}">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<section class="container py-3">
+		<div class="row p-2 justify-content-center">
+			<div class="col-lg-6 shadow-sm p-3 border">
+				<h3 class="text-center p-3">Employer Registration</h3>
+				<form th:action="@{/employer-sign-up}" method="post" th:object="${employer}">
+					<div class="form-group">
+						<label for="name">Concerned Person Name: </label> <input type="text"
+							class="form-control" placeholder="Full Name" th:field="*{name}">
+					</div>
+					<div class="form-group">
+						<label for="email">Email: </label> <input type="email"
+							class="form-control" placeholder="Email Address" th:field="*{email}">
+					</div>
+					<div class="form-group">
+						<label for="contactNumber">Mobile No: </label> <input type="number" name=""
+							class="form-control" placeholder="Mobile Number" th:field="*{contactNumber}">
+					</div>
+					<div class="form-group">
+						<label for="">Gender: </label>
+						<div>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" id="gender-male" name="gender"
+									class="custom-control-input" checked value="MALE"> <label
+									class="custom-control-label" for="gender-male">Male</label>
+							</div>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" id="gender-female" name="gender"
+									class="custom-control-input" value="FEMALE"> <label
+									class="custom-control-label" for="gender-female">Female</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="">Company Name: </label> <input type="text"
+							class="form-control" placeholder="Company Name" th:field="*{company.companyName}">
+					</div>
+					<div class="form-group">
+						<label for="">Company Industry: </label> <select th:field="*{company.industry}"
+							class="custom-select">
+							<option value="">IT</option>
+							<option value="">BPO</option>
+
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="">Password: </label> <input type="password"
+							class="form-control" placeholder="Password" th:field="*{password}">
+					</div>
+					<div class="form-group">
+						<label for="">Confirm Password: </label> <input type="password"
+							class="form-control" placeholder="Confirm Password">
+					</div>
+					<div class="form-group">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input"
+								id="customCheck1"> <label class="custom-control-label"
+								for="customCheck1">I Agree with Terms & Conditions</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Register" class="btn btn-primary">
+					</div>
+				</form>
+				<a th:href="@{/employer-sign-in}" class="d-block">Already have an account? Log In</a>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

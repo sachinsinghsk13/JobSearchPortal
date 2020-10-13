@@ -1,5 +1,6 @@
 package com.sachinsingh.jobsearch.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class JobApplicantApplication {
 	@ManyToOne(optional = false)
 	private JobPost job;
 	
+	@Column(name = "applied_on", nullable = false)
+	private LocalDateTime appliedOn;
+	
 	@ElementCollection
 	@CollectionId(columns = { @Column(name="message_id") }, generator = "message_sequence", type = @Type(type = "long"))
 	@GenericGenerator(name = "message_sequence", strategy = "sequence")
@@ -71,6 +75,12 @@ public class JobApplicantApplication {
 	}
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+	public LocalDateTime getAppliedOn() {
+		return appliedOn;
+	}
+	public void setAppliedOn(LocalDateTime appliedOn) {
+		this.appliedOn = appliedOn;
 	}
 	
 	

@@ -1,5 +1,8 @@
 package com.sachinsingh.jobsearch.model;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Range <T> {
 	private T lowest;
 	private T highest;
@@ -16,6 +19,4 @@ public class Range <T> {
 	public void setHighest(T highest) {
 		this.highest = highest;
 	}
-	
-	
 }

@@ -12,8 +12,8 @@ import com.google.common.collect.Sets;
 
 public enum ApplicationSecurityRole {
 	ADMIN(Sets.newHashSet(ApplicationSecurityPermission.CREATE_JOB_POST)),
-	JOB_SEEKER(null),
-	EMPLOYER(null);
+	JOB_SEEKER(Sets.newHashSet(ApplicationSecurityPermission.CREATE_JOB_POST)),
+	EMPLOYER(Sets.newHashSet(ApplicationSecurityPermission.CREATE_JOB_POST));
 	
 	private Set<ApplicationSecurityPermission> permissions;
 	

@@ -2,10 +2,69 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title></title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}"></title>
+<template th:replace="~{ui-component/bootstrap}"></template>
+
 </head>
 <body>
-	<h2>Test Class</h2>
+	<!-- Navigation Bar -->
+	<nav th:replace="~{navbar}"></nav>
+	
+	<div class="container" th:if="${alert}">
+		<div class="row m-4">
+			<div class="col-12">
+				<div th:class="${alertClass}" th:text="${alertMessage}">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Job Search Form -->
+	<section class="container job-search p-2 text-dark">
+		<div class="row py-lg-4 py-md-3">
+			<div class="col text-center text-dark font-weight-bold">
+				<h1>Find Your Dream Job With Rojgar Bharat</h1>
+				<h2>We've Over 5000 jobs for you</h2>
+			</div>
+		</div>
+		<div class="row py-lg-4 justify-content-center p-3">
+			<div class="col-lg-6 my-2">
+				<h4 class="py-3">Which Type of Job Looking For</h4>
+				<select class="custom-select custom-select-lg shadow-sm">
+					<option th:each="category : ${jobCategories}" th:text="${category.title}" th:value="${category.id}"></option>
+				</select>
+			</div>
+			<div class="col-lg-6 my-2">
+				<h4 class="py-3">Where You're Looking Job</h4>
+				<select class="custom-select custom-select-lg shadow-sm">
+					<option th:each="loc : ${locations}" th:text="${loc.city}" th:value="${loc.id}"></option>
+				</select>
+			</div>
+			<div class="col-lg-4 my-2">
+				<input type="submit" value="Find Jobs"
+					class="btn mt-3 shadow-sm btn-block btn-lg btn-primary">
+			</div>
+		</div>
+		<div class="row py-lg-2">
+			<div class="col-12 text-center p-2">
+				<h2>Join Us!</h2>
+				<h3>Create a account for posting your resume or finding new
+					employee</h3>
+			</div>
+			<div class="col-lg-6 text-center">
+				<h4 class="text-success p-2">I'm Looking For Job</h4>
+				<a th:href="@{/job-seeker-sign-up}" class="btn btn-success">Post Your Resume</a>
+			</div>
+			<div class="col-lg-6 text-center">
+				<h4 class="text-danger p-2">I'm Looking for Candidates</h4>
+				<a th:href="@{/employer-sign-up}" class="btn btn-danger">Hire Your Next Employee</a>
+			</div>
+		</div>
+	</section>
+
 </body>
 
 </html>

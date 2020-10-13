@@ -1,18 +1,19 @@
 package com.sachinsingh.jobsearch.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class Message {
-	private Date timestamp;
+	private LocalDateTime timestamp;
 	private String text;
 	
-	public Date getTimestamp() {
+	public LocalDateTime getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(LocalDateTime timestamp) {
 		this.timestamp = timestamp;
 	}
 	public String getText() {

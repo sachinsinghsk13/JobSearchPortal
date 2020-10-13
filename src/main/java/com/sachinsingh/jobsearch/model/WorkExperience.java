@@ -1,6 +1,6 @@
 package com.sachinsingh.jobsearch.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -17,12 +17,10 @@ public class WorkExperience {
 	private String companyName;
 	
 	@Column(name = "join_date", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
+	private LocalDate startDate;
 	
 	@Column(name = "leave_date")
-	@Temporal(TemporalType.DATE)
-	private Date endDate;
+	private LocalDate endDate;
 	
 	@Column(name = "description")
 	private String description;
@@ -43,19 +41,19 @@ public class WorkExperience {
 		this.companyName = companyName;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
@@ -115,4 +113,11 @@ public class WorkExperience {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "WorkExperience [jobTitle=" + jobTitle + ", companyName=" + companyName + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", description=" + description + "]";
+	}
+	
 }

@@ -10,6 +10,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "employers")
@@ -17,19 +20,27 @@ public class Employer extends Account {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", nullable = false)
+	@NotBlank
+	@NotNull
 	private String name;
 	
 	@Column(name = "contact_number", nullable = false, unique = true)
+	@Pattern(regexp = "^(?:(?:\\+|0{0,2})91(\\s*[\\ -]\\s*)?|[0]?)?[789]\\d{9}|(\\d[ -]?){10}\\d$", message = "Please Enter a Valid Mobile Number")
+	@NotNull
 	private String contactNumber;
 	
 	@Column(name = "gender", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Gender gender;
+	private Gender gender = Gender.MALE;
 	
 	private Company company;
 
 	@OneToMany(mappedBy = "postedBy", cascade = CascadeType.ALL)
 	private List<JobPost> jobPosts = new ArrayList<>();
+	
+	public Employer() {
+		company = new Company();
+	}
 	
 	public String getName() {
 		return name;

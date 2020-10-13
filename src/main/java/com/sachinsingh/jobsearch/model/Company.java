@@ -1,5 +1,6 @@
 package com.sachinsingh.jobsearch.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,8 +22,7 @@ public class Company {
 	private String address;
 	
 	@Column(name = "established_in")
-	@Temporal(TemporalType.DATE)
-	private Date establishedIn;
+	private LocalDate establishedIn;
 	
 	@Column(name = "about_company", columnDefinition = "VARCHAR(2048)")
 	private String about;
@@ -55,11 +55,12 @@ public class Company {
 		this.address = address;
 	}
 
-	public Date getEstablishedIn() {
+	
+	public LocalDate getEstablishedIn() {
 		return establishedIn;
 	}
 
-	public void setEstablishedIn(Date establishedIn) {
+	public void setEstablishedIn(LocalDate establishedIn) {
 		this.establishedIn = establishedIn;
 	}
 

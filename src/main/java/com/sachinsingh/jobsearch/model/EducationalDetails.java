@@ -1,5 +1,6 @@
 package com.sachinsingh.jobsearch.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,12 +18,10 @@ public class EducationalDetails {
 	private String boardOrUniversity;
 	
 	@Column(name = "start_date", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date startDate;
+	private LocalDate startDate;
 	
 	@Column(name = "end_date", nullable = true)
-	@Temporal(TemporalType.DATE)
-	private Date endDate;
+	private LocalDate endDate;
 	
 	@Column(name = "percentage")
 	private Double pertentage;
@@ -43,19 +42,19 @@ public class EducationalDetails {
 		this.boardOrUniversity = boardOrUniversity;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
@@ -114,6 +113,12 @@ public class EducationalDetails {
 		} else if (!startDate.equals(other.startDate))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "EducationalDetails [educationType=" + educationType + ", boardOrUniversity=" + boardOrUniversity
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", pertentage=" + pertentage + "]";
 	}
 	
 }

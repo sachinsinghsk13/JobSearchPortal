@@ -1,5 +1,6 @@
 package com.sachinsingh.jobsearch.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -17,6 +18,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "job_seekers")
@@ -24,18 +30,24 @@ public class JobSeeker extends Account {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "full_name", nullable = false)
+	@NotNull(message = "Please Enter Your Name")
+	@NotBlank(message="Please Enter Your Name")
 	private String name;
 	
 	@Column(name = "contact_number", nullable = false, unique = true)
+	@Pattern(regexp = "^(?:(?:\\+|0{0,2})91(\\s*[\\ -]\\s*)?|[0]?)?[789]\\d{9}|(\\d[ -]?){10}\\d$", message = "Please Enter a Valid Mobile Number")
+	@NotNull
 	private String contactNumber;
 	
 	@Column(name = "date_of_birth", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date dateOfBirth;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
+	private LocalDate dateOfBirth;
 	
 	@Column(name = "gender", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private Gender gender;
+	@NotNull
+	private Gender gender = Gender.MALE;
 	
 	@Column(name = "resume", nullable = true)
 	@Lob
@@ -50,7 +62,6 @@ public class JobSeeker extends Account {
 	private Set<WorkExperience> workExperiences = new HashSet<>();
 
 	@OneToMany(mappedBy = "applicant")
-	@JoinColumn(name = "job_seeker_id", nullable = false)
 	private List<JobApplicantApplication> appliedJobs = new ArrayList<>();
 	
 	public String getName() {
@@ -69,12 +80,20 @@ public class JobSeeker extends Account {
 		this.contactNumber = contactNumber;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public List<JobApplicantApplication> getAppliedJobs() {
+		return appliedJobs;
+	}
+
+	public void setAppliedJobs(List<JobApplicantApplication> appliedJobs) {
+		this.appliedJobs = appliedJobs;
 	}
 
 	public Gender getGender() {
@@ -108,5 +127,14 @@ public class JobSeeker extends Account {
 	public void setWorkExperiences(Set<WorkExperience> workExperiences) {
 		this.workExperiences = workExperiences;
 	}
+
+	@Override
+	public String toString() {
+		return "JobSeeker [name=" + name + ", contactNumber=" + contactNumber + ", dateOfBirth=" + dateOfBirth
+				+ ", gender=" + gender + ", educationalDetails=" + educationalDetails + ", workExperiences="
+				+ workExperiences + ", id=" + id + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", active=" + active + "]";
+	}
+	
 	
 }
