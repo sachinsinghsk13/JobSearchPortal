@@ -26,6 +26,10 @@ public class JobCategory {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	@Override
+	public String toString() {
+		return "JobCategory [id=" + id + ", title=" + title + "]";
+	}
 	
 	
 }

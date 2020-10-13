@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}"></title>
+<template th:replace="~{ui-component/bootstrap}"></template>
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav th:replace="~{abstract-navbar}"></nav>
+	<div class="container">
+		<div class="row my-3 border shadow-sm">
+			<div class="col-12">
+				<h3 class="text-center p-3">New Job Post</h3>
+				<form th:action="@{/employers/new-job-post}" th:method="post" th:object="${job}" class="p-2">
+					<input type="hidden" name="id">
+					<div class="form-row">
+						<div class="col-lg-6 form-group">
+							<label for="">Job Title: </label> <input type="text"
+								class="form-control" placeholder="Job Title" th:field="*{jobTitle}">
+						</div>
+						<div class="col-lg-6 form-group">
+							<label for="">Job Category: </label> <select
+								class="custom-select" th:field="*{jobCategory.id}">
+								<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.title}"></option>
+							</select>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="">For Location: </label> <select th:field="*{location.id}"
+								class="custom-select">
+								<option th:each="loc : ${locations}" th:value="${loc.id}" th:text="${loc.city}"></option>
+							</select>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="">Job Type: </label> <select th:field="*{jobType}"
+								class="custom-select" id="">
+								<option value="FULL_TIME">FULL TIME</option>
+								<option value="PART_TIME">PART TIME</option>
+								<option value="INTERNSHIP">INTERNSHIP</option>
+							</select>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="">Open Vacancies: </label> <input type="number"
+								placeholder="Open Vacancies" class="form-control" th:field="*{vacancies}">
+						</div>
+						<div class="col-lg-6 form-group">
+							<label for="">Salary (in Rupees/Month)</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<div class="input-group-text">Min</div>
+								</div>
+								<input type="text" class="form-control" placeholder="Min Salary" th:field="*{salary.lowest}">
+								<div class="input-group-prepend">
+									<div class="input-group-text">Max</div>
+								</div>
+								<input type="text" class="form-control" placeholder="Max Salary" th:field="*{salary.highest}">
+							</div>
+						</div>
+						<div class="col-lg-6 form-group">
+							<label for="">Experience (in Years)</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<div class="input-group-text">Min</div>
+								</div>
+								<input type="text" class="form-control"
+									placeholder="Min Experience" th:field="*{experience.lowest}">
+								<div class="input-group-prepend">
+									<div class="input-group-text">Max</div>
+								</div>
+								<input type="text" class="form-control"
+									placeholder="Max Experience" th:field="*{experience.highest}">
+							</div>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="">Expiry Date: </label> <input type="date"
+								class="form-control" th:field="*{expiryDate}">
+						</div>
+						<div class="col-lg-8 form-group">
+							<label for="">Tags</label> <input type="text"
+								class="form-control" placeholder="tags" th:field="*{tags}">
+						</div>
+						<div class="col-12 form-group">
+							<label for="">Job Description: </label>
+							<textarea th:field="*{description}"></textarea>
+						</div>
+						<div class="col-12 form-group">
+							<input type="submit" value="Post Job"
+								class="btn btn-primary px-4 py-2"> <a href="#"
+								class="btn btn-secondary px-4 py-2">Cancel</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		tinymce.init({
+			selector : '#description'
+		});
+	</script>
+</body>
+
+</html>

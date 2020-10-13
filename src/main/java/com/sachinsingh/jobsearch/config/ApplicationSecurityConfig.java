@@ -28,7 +28,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(authProvider());
 	}
 	
-	
 	@Bean
 	public DaoAuthenticationProvider authProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -50,7 +49,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/login")
 				.loginProcessingUrl("/doLogin")
-				.successForwardUrl("/")
+				.successHandler((req, res, auth) -> res.sendRedirect("/"))
 				.failureForwardUrl("/login?error")
 				.usernameParameter("email")
 				.passwordParameter("password")

@@ -8,11 +8,17 @@ import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Embeddable
 public class Company {
 	
 	@Column(name = "company_name", nullable = false)
+	@NotNull
+	@NotBlank
 	private String companyName;
 	
 	@Column(name = "industry")
@@ -22,6 +28,7 @@ public class Company {
 	private String address;
 	
 	@Column(name = "established_in")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate establishedIn;
 	
 	@Column(name = "about_company", columnDefinition = "VARCHAR(2048)")
@@ -80,6 +87,13 @@ public class Company {
 		this.logo = logo;
 	}
 
+	@Override
+	public String toString() {
+		return "Company [companyName=" + companyName + ", industry=" + industry + ", address=" + address
+				+ ", establishedIn=" + establishedIn + ", about=" + about + "]";
+	}
+	
+	
 	
 }
 

@@ -73,6 +73,13 @@ public class Employer extends Account {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+
+	@Override
+	public String toString() {
+		return "Employer [name=" + name + ", contactNumber=" + contactNumber + ", gender=" + gender + ", company="
+				+ company + ", id=" + id + ", email=" + email + ", password=" + password + ", role=" + role
+				+ ", active=" + active + ", createdTimestamp=" + createdTimestamp + "]";
+	}
 	
 	
 }

@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +35,9 @@ public class JobPost {
 	private Long id;
 	
 	@Column(name = "job_title", nullable = false)
+	@NotBlank
+	@NotNull
+	@Size(min = 8, max = 35)
 	private String jobTitle;
 	
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -42,7 +48,7 @@ public class JobPost {
 			@AttributeOverride(name = "highest", column = @Column(name = "highest_salary")),
 			@AttributeOverride(name = "lowest", column = @Column(name = "lowest_salary"))
 	})
-	private Range<Double> salary;
+	private Range salary;
 	
 	
 	@Column(name = "experience")
@@ -50,11 +56,11 @@ public class JobPost {
 		@AttributeOverride(name = "highest", column = @Column(name = "highest_experience")),
 		@AttributeOverride(name = "lowest", column = @Column(name = "lowest_experience"))
 	})
-	private Range<Integer> experience;
+	private Range experience;
 	
 	@Column(name = "job_type", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private JobType jobType;
+	private JobType jobType = JobType.FULL_TIME;
 	
 	@Column(name = "posted_date", nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -70,6 +76,9 @@ public class JobPost {
 	@Column(name = "job_description", columnDefinition = "varchar(2048)")
 	private String description;
 	
+	@Column(name = "tags")
+	private String tags;
+	
 	@ManyToOne(optional = false)
 	private Location location;
 	
@@ -81,6 +90,14 @@ public class JobPost {
 	
 	public Long getId() {
 		return id;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	public void setId(Long id) {
@@ -103,19 +120,19 @@ public class JobPost {
 		this.jobCategory = jobCategory;
 	}
 
-	public Range<Double> getSalary() {
+	public Range getSalary() {
 		return salary;
 	}
 
-	public void setSalary(Range<Double> salary) {
+	public void setSalary(Range salary) {
 		this.salary = salary;
 	}
 
-	public Range<Integer> getExperience() {
+	public Range getExperience() {
 		return experience;
 	}
 
-	public void setExperience(Range<Integer> experience) {
+	public void setExperience(Range experience) {
 		this.experience = experience;
 	}
 
@@ -181,6 +198,14 @@ public class JobPost {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	@Override
+	public String toString() {
+		return "JobPost [id=" + id + ", jobTitle=" + jobTitle + ", jobCategory=" + jobCategory + ", salary=" + salary
+				+ ", experience=" + experience + ", jobType=" + jobType + ", postedDate=" + postedDate + ", expiryDate="
+				+ expiryDate + ", vacancies=" + vacancies + ", description=" + description + ", tags=" + tags
+				+ ", location=" + location + "]";
 	}
 	
 }

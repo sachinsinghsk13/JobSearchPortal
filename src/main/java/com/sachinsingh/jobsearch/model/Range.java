@@ -3,20 +3,34 @@ package com.sachinsingh.jobsearch.model;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Range <T> {
-	private T lowest;
-	private T highest;
+public class Range {
+	private Integer lowest;
+	private Integer highest;
 	
-	public T getLowest() {
+	
+	public Integer getLowest() {
 		return lowest;
 	}
-	public void setLowest(T lowest) {
+
+
+	public void setLowest(Integer lowest) {
 		this.lowest = lowest;
 	}
-	public T getHighest() {
+
+
+	public Integer getHighest() {
 		return highest;
 	}
-	public void setHighest(T highest) {
+
+
+	public void setHighest(Integer highest) {
 		this.highest = highest;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Range [lowest=" + lowest + ", highest=" + highest + "]";
+	}
+	
 }

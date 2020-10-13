@@ -1,6 +1,6 @@
 <!-- Author : sachinsingh -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 </head>
 <body>
 	<!-- Navigation Bar -->
-	<nav th:replace="~{navbar}"></nav>
+	<nav th:replace="~{abstract-navbar}"></nav>
 	
 	<div class="container" th:if="${alert}">
 		<div class="row m-4">

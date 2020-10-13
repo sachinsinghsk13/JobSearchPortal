@@ -1,0 +1,4 @@
+<nav sec:authorize="hasRole('ANONYMOUS')"
+	th:replace="~{ui-component/navbar}"></nav>
+<nav sec:authorize="hasRole('EMPLOYER')"
+	th:replace="~{ui-component/employer-navbar.html}"></nav>
