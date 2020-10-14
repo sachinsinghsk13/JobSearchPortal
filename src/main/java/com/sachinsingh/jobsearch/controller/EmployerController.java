@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -138,6 +140,14 @@ public class EmployerController {
 		JobPost jobPost = jobPostRepository.findByIdAndPostedBy(jobId, employer).orElseThrow(() -> new JobPostNotFoundException());
 		modelView.addObject("job", jobPost);
 		modelView.setViewName("employer/job-view");
+		return modelView;
+	}
+	
+	@GetMapping("/manage-job-posts")
+	public ModelAndView manageJobPosts(Principal principal, ModelAndView modelView, Pageable pageable) {
+		Page<JobPost> page = jobPostRepository.findAll(pageable);
+		modelView.addObject("jobs", page);
+		modelView.setViewName("employer/manage-jobs");
 		return modelView;
 	}
 }

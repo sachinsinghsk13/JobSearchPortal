@@ -1,6 +1,7 @@
 <!-- Author : sachinsingh -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,17 +12,15 @@
 <body>
 	<!-- Navigation Bar -->
 	<nav th:replace="~{abstract-navbar}"></nav>
-	
+
 	<div class="container" th:if="${alert}">
 		<div class="row m-4">
 			<div class="col-12">
-				<div th:class="${alertClass}" th:text="${alertMessage}">
-					
-				</div>
+				<div th:class="${alertClass}" th:text="${alertMessage}"></div>
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- Job Search Form -->
 	<section class="container job-search p-2 text-dark">
 		<div class="row py-lg-4 py-md-3">
@@ -30,24 +29,31 @@
 				<h2>We've Over 5000 jobs for you</h2>
 			</div>
 		</div>
-		<div class="row py-lg-4 justify-content-center p-3">
-			<div class="col-lg-6 my-2">
-				<h4 class="py-3">Which Type of Job Looking For</h4>
-				<select class="custom-select custom-select-lg shadow-sm">
-					<option th:each="category : ${jobCategories}" th:text="${category.title}" th:value="${category.id}"></option>
-				</select>
+		<form th:action="@{/jobs}" th:method=get>
+			<div class="row py-lg-4 justify-content-center p-3">
+
+				<div class="col-lg-6 my-2">
+					<h4 class="py-3">Which Type of Job Looking For</h4>
+					<select class="custom-select custom-select-lg shadow-sm" name="category">
+						<option value="" selected>Any Category</option>
+						<option th:each="category : ${jobCategories}"
+							th:text="${category.title}" th:value="${category.id}"></option>
+					</select>
+				</div>
+				<div class="col-lg-6 my-2">
+					<h4 class="py-3">Where You're Looking Job</h4>
+					<select class="custom-select custom-select-lg shadow-sm" name="location">
+						<option value="" selected>Any Location</option>
+						<option th:each="loc : ${locations}" th:text="${loc.city}"
+							th:value="${loc.id}"></option>
+					</select>
+				</div>
+				<div class="col-lg-4 my-2">
+					<input type="submit" value="Find Jobs"
+						class="btn mt-3 shadow-sm btn-block btn-lg btn-primary">
+				</div>
 			</div>
-			<div class="col-lg-6 my-2">
-				<h4 class="py-3">Where You're Looking Job</h4>
-				<select class="custom-select custom-select-lg shadow-sm">
-					<option th:each="loc : ${locations}" th:text="${loc.city}" th:value="${loc.id}"></option>
-				</select>
-			</div>
-			<div class="col-lg-4 my-2">
-				<input type="submit" value="Find Jobs"
-					class="btn mt-3 shadow-sm btn-block btn-lg btn-primary">
-			</div>
-		</div>
+		</form>
 		<div class="row py-lg-2">
 			<div class="col-12 text-center p-2">
 				<h2>Join Us!</h2>
@@ -56,15 +62,61 @@
 			</div>
 			<div class="col-lg-6 text-center">
 				<h4 class="text-success p-2">I'm Looking For Job</h4>
-				<a th:href="@{/job-seeker-sign-up}" class="btn btn-success">Post Your Resume</a>
+				<a th:href="@{/job-seeker-sign-up}" class="btn btn-success">Post
+					Your Resume</a>
 			</div>
 			<div class="col-lg-6 text-center">
 				<h4 class="text-danger p-2">I'm Looking for Candidates</h4>
-				<a th:href="@{/employer-sign-up}" class="btn btn-danger">Hire Your Next Employee</a>
+				<a th:href="@{/employer-sign-up}" class="btn btn-danger">Hire
+					Your Next Employee</a>
 			</div>
 		</div>
 	</section>
-
+	<!-- Recent Job Posts -->
+	<div class="container p-3 my-1">
+		<div class="row mb-3 p-3">
+			<h4 class="">Recent Jobs</h4>
+		</div>
+		<div class="row text-dark">
+			<a th:href="@{/}"
+				class="d-block col-lg-12 text-dark text-decoration-none m-2 p-3 border"
+				th:each="job : ${recentJobs.content}">
+				<h5 class="font-weight-bold" th:text="${job.jobTitle}"></h5>
+				<h6 th:text="${job.postedBy.company.companyName}"></h6>
+				<div class="row">
+					<div class="col-6 col-sm-4">
+						<p>
+							<i class="fa fa-map-marker"></i> <span
+								th:text="${job.location.city}"></span>
+						</p>
+					</div>
+					<div class="col-6 col-sm-4">
+						<p>
+							<i class="fa fa-briefcase"></i> <span
+								th:text="${job.experience.lowest}"></span> - <span
+								th:text="${job.experience.highest}"></span> year
+						</p>
+					</div>
+					<div class="col-sm-4">
+						<p>
+							<i class="fa fa-rupee"></i> <span th:text="${job.salary.lowest}"></span>-<span
+								th:text="${job.salary.highest}"></span> Monthly
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6 col-sm-4">
+						<i class="fa fa-clock-o"></i> <span th:text="${job.postedDate}"></span>
+					</div>
+					<div class="col-12 col-sm-8">
+						<i class="fa fa-tags"></i> <span th:text="${job.tags}"></span>
+					</div>
+				</div>
+				<div class="row my-2"></div>
+			</a>
+		</div>
+	</div>
+	<footer th:replace="~{footer}"></footer>
 </body>
 
 </html>
