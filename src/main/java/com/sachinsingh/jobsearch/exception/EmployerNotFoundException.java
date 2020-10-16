@@ -1,6 +1,6 @@
 package com.sachinsingh.jobsearch.exception;
 
-public class EmployerNotFoundException extends Exception {
+public class EmployerNotFoundException extends RuntimeException {
 
 	/**
 	 * 

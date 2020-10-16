@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}"></title>
+<template th:replace="~{ui-component/bootstrap}"></template>
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav th:replace="~{abstract-navbar}"></nav>
+	<section class="container">
+		<div class="row border shadow-sm my-3">
+			<div class="col-12">
+				<h3 class="text-center p-3">Applied Jobs</h3>
+				<table class="table  text-center table-borderless">
+					<thead>
+						<tr>
+							<th>Job Title</th>
+							<th>Applied Date</th>
+							<th>Application Status</th>
+							<th>View Application</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="jobApplication : ${appliedJobsApplications.content}">
+							<td th:text="${jobApplication.job.jobTitle}"></td>
+						</tr>
+						
+					</tbody>
+				</table>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:if="${!appliedJobsApplications.first}"><a class="page-link" href="#"
+							tabindex="-1" aria-disabled="true">Previous</a></li>
+						<li class="page-item" th:each="num : ${#numbers.sequence(0,appliedJobsApplications.totalPages - 1)}">
+							<a class="page-link" th:href="@{/employers/manage-job-posts(page=${num})}" th:text="${num + 1}"></a>
+						</li>
+						<li class="page-item" th:if="${!appliedJobsApplications.last}"><a class="page-link" href="#">Next</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>

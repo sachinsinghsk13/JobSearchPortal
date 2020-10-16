@@ -84,29 +84,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Akanksha Sharma</td>
-							<td><a href="#" class="btn btn-link">sachinsingh.sk13@gmail</a></td>
+						<tr th:each="application, itrState : ${applicants}">
+							<td th:text="${itrState.count}"></td>
+							<td th:text="${application.applicant.name}"></td>
+							<td><a th:href="#" class="btn btn-link" th:text="${application.applicant.email}"></a></td>
 							<td><a href="#" class="btn btn-link">View Application</a></td>
 							<td><a href="#" class="btn btn-primary"> Get Resume</a></td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>Amit Lamba</td>
-							<td><a href="#" class="btn btn-link">thebestamitkumar@gmail</a></td>
-							<td><a href="#" class="btn btn-link">View Application</a></td>
-							<td><a href="#" class="btn btn-primary"> Get Resume</a></td>
-						</tr>
-
-						<tr>
-							<td>1</td>
-							<td>Akanksha Sharma</td>
-							<td><a href="#" class="btn btn-link">sachinsingh.sk13@gmail</a></td>
-							<td><a href="#" class="btn btn-link">View Application</a></td>
-							<td><a href="#" class="btn btn-primary"> Get Resume</a></td>
-						</tr>
-
 					</tbody>
 				</table>
 				<nav aria-label="Page navigation example">
@@ -123,6 +107,7 @@
 			</div>
 		</div>
 	</section>
+	<footer th:replace="~{footer}"></footer>
 </body>
 
 </html>

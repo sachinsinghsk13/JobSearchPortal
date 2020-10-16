@@ -2,3 +2,5 @@
 	th:replace="~{ui-component/navbar}"></nav>
 <nav sec:authorize="hasRole('EMPLOYER')"
 	th:replace="~{ui-component/employer-navbar.html}"></nav>
+<nav sec:authorize="hasRole('JOB_SEEKER')"
+	th:replace="~{ui-component/jobseeker-navbar.html}"></nav>

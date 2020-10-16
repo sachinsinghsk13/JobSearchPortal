@@ -18,4 +18,5 @@ public interface JobPostRepository extends PagingAndSortingRepository<JobPost, L
 	Page<JobPost> findByLocationAndJobCategory(Location location, JobCategory jobCategory, Pageable pageable);
 	Page<JobPost> findByLocation(Location location, Pageable pageable);
 	Page<JobPost> findByJobCategory(JobCategory jobCategory, Pageable pageable);
+	Page<JobPost> findByPostedBy(Employer postedBy, Pageable pageable);
 }

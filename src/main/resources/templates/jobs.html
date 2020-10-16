@@ -20,7 +20,8 @@
 							class="custom-select">
 							<option value="" selected>Any Category</option>
 							<option th:each="cat : ${jobCategories}" th:value="${cat.id}"
-								th:text="${cat.title}" th:attrappend="selected=${cat.id == category}?'selected'"></option>
+								th:text="${cat.title}"
+								th:attrappend="selected=${cat.id == category}?'selected'"></option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -28,19 +29,20 @@
 							class="custom-select">
 							<option value="" selected>Any Location</option>
 							<option th:each="loc : ${locations}" th:value="${loc.id}"
-								th:text="${loc.city}" th:attrappend="selected=${loc.id == location}?'selected'"></option>
+								th:text="${loc.city}"
+								th:attrappend="selected=${loc.id == location}?'selected'"></option>
 						</select>
 					</div>
-					
+
 					<div class="form-group">
-						<input type="submit" value="Show Result"
+						<input type="submit" value="Find Jobs"
 							class="btn btn-block btn-primary">
 					</div>
 				</form>
 			</div>
-			<div class="col-lg-9 col-md-8">
+			<div class="col-lg-9 col-md-8" th:if="!${#lists.isEmpty(jobs.content)}">
 				<div class="row text-dark">
-					<a th:href="@{/}"
+					<a th:href="@{|/jobs/${job.id}|}"
 						class="d-block col-lg-12 text-dark text-decoration-none m-2 p-3 border"
 						th:each="job : ${jobs.content}">
 						<h5 class="font-weight-bold" th:text="${job.jobTitle}"></h5>
@@ -77,11 +79,31 @@
 						</div>
 						<div class="row my-2"></div>
 					</a>
-
+					<div class="col-12">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<li class="page-item" th:if="${!jobs.first}"><a
+									class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+								<li class="page-item"
+									th:each="num : ${#numbers.sequence(0,jobs.totalPages - 1)}">
+									<a class="page-link"
+									th:href="@{/employers/manage-job-posts(page=${num})}"
+									th:text="${num + 1}"></a>
+								</li>
+								<li class="page-item" th:if="${!jobs.last}"><a
+									class="page-link" href="#">Next</a></li>
+							</ul>
+						</nav>
+					</div>
 				</div>
+			</div>
+			<div th:unless="!${#lists.isEmpty(jobs.content)}" class="col-lg-9 col-md-8">
+				<h4 class="text-center">No Jobs To Display</h4>
+				<p class="lead text-center">Try Seaching for a Different Job or Different Location</p>
 			</div>
 		</div>
 	</section>
+	<footer th:replace="~{footer}"></footer>
 </body>
 
 </html>

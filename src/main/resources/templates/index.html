@@ -78,7 +78,7 @@
 			<h4 class="">Recent Jobs</h4>
 		</div>
 		<div class="row text-dark">
-			<a th:href="@{/}"
+			<a th:href="@{|/jobs/${job.id}|}"
 				class="d-block col-lg-12 text-dark text-decoration-none m-2 p-3 border"
 				th:each="job : ${recentJobs.content}">
 				<h5 class="font-weight-bold" th:text="${job.jobTitle}"></h5>

@@ -11,10 +11,12 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sachinsingh.jobsearch.exception.JobPostNotFoundException;
 import com.sachinsingh.jobsearch.model.JobPost;
 import com.sachinsingh.jobsearch.repository.JobCategoryRepository;
 import com.sachinsingh.jobsearch.repository.JobPostRepository;
@@ -73,4 +75,30 @@ public class MainController {
 		modelView.setViewName("jobs");
 		return modelView;
 	}
+	
+	@GetMapping("/jobs/{jobId}")
+	public ModelAndView viewJob(@PathVariable("jobId") Long jobId, ModelAndView modelView) throws JobPostNotFoundException {
+		JobPost job = jobPostRepository.findById(jobId).orElseThrow(() -> new JobPostNotFoundException());
+		modelView.addObject("job", job);
+		modelView.setViewName("job-view");
+		return modelView;
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

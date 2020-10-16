@@ -135,17 +135,16 @@ public class EmployerController {
 	}
 	
 	@GetMapping("/job-posts/{jobId}")
-	public ModelAndView viewJobPost(@PathVariable("jobId") Long jobId, Principal principal, ModelAndView modelView) throws EmployerNotFoundException, JobPostNotFoundException {
-		Employer employer = employerRepository.findByEmail(principal.getName()).orElseThrow(() -> new EmployerNotFoundException());
-		JobPost jobPost = jobPostRepository.findByIdAndPostedBy(jobId, employer).orElseThrow(() -> new JobPostNotFoundException());
-		modelView.addObject("job", jobPost);
+	public ModelAndView viewJobPost(@PathVariable("jobId") Long jobId, Principal principal,Pageable pageable, ModelAndView modelView) throws EmployerNotFoundException, JobPostNotFoundException {
+		jobPostService.getJobViewForEmployer(jobId, principal, pageable, modelView);
 		modelView.setViewName("employer/job-view");
 		return modelView;
 	}
 	
 	@GetMapping("/manage-job-posts")
-	public ModelAndView manageJobPosts(Principal principal, ModelAndView modelView, Pageable pageable) {
-		Page<JobPost> page = jobPostRepository.findAll(pageable);
+	public ModelAndView manageJobPosts(Principal principal, ModelAndView modelView, Pageable pageable) throws EmployerNotFoundException {
+		Employer employer = employerRepository.findByEmail(principal.getName()).orElseThrow(() -> new EmployerNotFoundException());
+		Page<JobPost> page = jobPostRepository.findByPostedBy(employer,pageable);
 		modelView.addObject("jobs", page);
 		modelView.setViewName("employer/manage-jobs");
 		return modelView;
