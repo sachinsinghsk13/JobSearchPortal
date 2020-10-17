@@ -26,6 +26,9 @@
 					<tbody>
 						<tr th:each="jobApplication : ${appliedJobsApplications.content}">
 							<td th:text="${jobApplication.job.jobTitle}"></td>
+							<td th:text="${#temporals.format(jobApplication.appliedOn, 'dd MMM, yyyy hh:mm a')}"></td>
+							<td th:text="${jobApplication.status}"></td>
+							<td><a th:href="|/jobseekers/job-application/${jobApplication.id}|">View Application</a></td>
 						</tr>
 						
 					</tbody>

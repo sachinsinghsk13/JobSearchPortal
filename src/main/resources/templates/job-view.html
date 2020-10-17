@@ -10,6 +10,18 @@
 	<!-- Navigation Bar -->
 	<nav th:replace="~{abstract-navbar}"></nav>
 	<section class="container">
+		<div class="row p-2" id="apply-success-alert" style="display: none;">
+			<div class="col-12">
+				<div class="alert alert-success">Your application has been sent successfully</div>
+			</div>
+		</div>
+		<div class="row p-2" id="apply-fail-alert" style="display: none;">
+			<div class="col-12">
+				<div class="alert alert-danger">Your application is not sent. You had already applied for this job</div>
+			</div>
+		</div>
+
+
 		<div class="row my-2 border shadow-sm p-2">
 			<div class="col-lg-8 p-2">
 				<h4 class="text-center" th:text="${job.jobTitle}"></h4>
@@ -70,7 +82,7 @@
 						</p>
 					</div>
 					<div class="col-12">
-						<a sec:authorize="hasRole('JOB_SEEKER')" class="btn btn-primary" th:href="@{|/jobseekers/apply-job/${job.id}|}">Apply</a>
+						<button sec:authorize="hasRole('JOB_SEEKER')" class="btn btn-primary" id="apply-button" th:data-jobid="${job.id}">Apply</button>
 						<a sec:authorize="hasRole('ANONYMOUS')" class="btn btn-primary" th:href="@{/login}">Login To Apply</a>
 						<a sec:authorize="hasRole('EMPLOYER')" class="btn btn-primary" href="javascritp:void(0)">You Can't Apply To Jobs</a>
 					</div>

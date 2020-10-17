@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}"></title>
+<template th:replace="~{ui-component/bootstrap}"></template>
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav th:replace="~{abstract-navbar}"></nav>
+	
+	<section class="container">
+		<div class="row my-2 border shadow-sm p-2">
+			<div class="col">
+				<h3 class="text-center">Job Application View</h3>
+				
+			</div>
+		</div>
+	</section>
+	
+</body>
+
+</html>

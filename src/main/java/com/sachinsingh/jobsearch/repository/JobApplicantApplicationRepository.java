@@ -1,5 +1,7 @@
 package com.sachinsingh.jobsearch.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -13,4 +15,5 @@ import com.sachinsingh.jobsearch.model.JobSeeker;
 public interface JobApplicantApplicationRepository extends PagingAndSortingRepository<JobApplicantApplication, Long> {
 	Page<JobApplicantApplication> findByJob(JobPost job, Pageable pageable);
 	Page<JobApplicantApplication> findByApplicant(JobSeeker applicant, Pageable pageable);
+	Optional<JobApplicantApplication> findByIdAndApplicant(Long id, JobSeeker applicant);
 }

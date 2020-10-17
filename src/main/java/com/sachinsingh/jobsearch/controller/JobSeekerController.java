@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sachinsingh.jobsearch.exception.JobApplicationNotFoundException;
 import com.sachinsingh.jobsearch.exception.JobSeekerNotFoundException;
 import com.sachinsingh.jobsearch.model.JobApplicantApplication;
 import com.sachinsingh.jobsearch.model.JobPost;
@@ -53,12 +55,26 @@ public class JobSeekerController {
 		return modelView;
 	}
 	
-	@PostMapping("/apply-job/{jobId}")
+	@GetMapping("/apply-job/{jobId}")
 	public ModelAndView applyJobs(@PathVariable("jobId") Long jobId, Principal principal, ModelAndView modelView) {
 		jobSeekerService.applyToJob(principal.getName(), jobId);
 		modelView.addObject("appliedSuccess", true);
-		modelView.setViewName("");
-		
+		modelView.setViewName("redirect:/jobs/" + jobId);
 		return modelView;
 	}
+	
+	
+	@GetMapping("/job-application/{id}")
+	public ModelAndView viewJobApplication(@PathVariable("id") Long id,Principal principal, ModelAndView modelView) {
+		JobSeeker jobseeker = jobSeekerRepo.findByEmail(principal.getName())
+				.orElseThrow(() -> new JobSeekerNotFoundException());
+		JobApplicantApplication jobApplication = jobApplicantApplicationRepo.findByIdAndApplicant(id, jobseeker)
+				.orElseThrow(() -> new JobApplicationNotFoundException());
+		modelView.addObject("jobApplication", jobApplication);
+		modelView.setViewName("jobseeker/application");
+		return modelView;
+	}
+	
+	
+
 }

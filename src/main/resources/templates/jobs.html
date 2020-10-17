@@ -42,7 +42,7 @@
 			</div>
 			<div class="col-lg-9 col-md-8" th:if="!${#lists.isEmpty(jobs.content)}">
 				<div class="row text-dark">
-					<a th:href="@{|/jobs/${job.id}|}"
+					<a th:href="@{|/jobs/${job.id}|}" target="_blank"
 						class="d-block col-lg-12 text-dark text-decoration-none m-2 p-3 border"
 						th:each="job : ${jobs.content}">
 						<h5 class="font-weight-bold" th:text="${job.jobTitle}"></h5>
