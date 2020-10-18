@@ -14,10 +14,11 @@
 		<div class="row border shadow-sm my-3">
 			<div class="col-12">
 				<h3 class="text-center p-3">Applied Jobs</h3>
-				<table class="table  text-center table-borderless">
+				<table class="table text-center table-borderless">
 					<thead>
 						<tr>
 							<th>Job Title</th>
+							<th>Company</th>
 							<th>Applied Date</th>
 							<th>Application Status</th>
 							<th>View Application</th>
@@ -26,6 +27,7 @@
 					<tbody>
 						<tr th:each="jobApplication : ${appliedJobsApplications.content}">
 							<td th:text="${jobApplication.job.jobTitle}"></td>
+							<td th:text="${jobApplication.job.postedBy.company.companyName}"></td>
 							<td th:text="${#temporals.format(jobApplication.appliedOn, 'dd MMM, yyyy hh:mm a')}"></td>
 							<td th:text="${jobApplication.status}"></td>
 							<td><a th:href="|/jobseekers/job-application/${jobApplication.id}|">View Application</a></td>

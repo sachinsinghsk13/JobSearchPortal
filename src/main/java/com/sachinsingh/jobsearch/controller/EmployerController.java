@@ -20,13 +20,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sachinsingh.jobsearch.dto.EmployerDto;
 import com.sachinsingh.jobsearch.exception.EmployerNotFoundException;
+import com.sachinsingh.jobsearch.exception.JobApplicationNotFoundException;
 import com.sachinsingh.jobsearch.exception.JobPostNotFoundException;
 import com.sachinsingh.jobsearch.model.Employer;
+import com.sachinsingh.jobsearch.model.JobApplicantApplication;
 import com.sachinsingh.jobsearch.model.JobCategory;
 import com.sachinsingh.jobsearch.model.JobPost;
 import com.sachinsingh.jobsearch.model.Location;
 import com.sachinsingh.jobsearch.model.Range;
 import com.sachinsingh.jobsearch.repository.EmployerRepository;
+import com.sachinsingh.jobsearch.repository.JobApplicantApplicationRepository;
 import com.sachinsingh.jobsearch.repository.JobCategoryRepository;
 import com.sachinsingh.jobsearch.repository.JobPostRepository;
 import com.sachinsingh.jobsearch.repository.LocationRepository;
@@ -55,6 +58,9 @@ public class EmployerController {
 	
 	@Autowired
 	private JobPostService jobPostService;
+	
+	@Autowired
+	private JobApplicantApplicationRepository jobApplicantApplicationRepo;
 	
 	
 	@GetMapping("/test")
@@ -149,4 +155,33 @@ public class EmployerController {
 		modelView.setViewName("employer/manage-jobs");
 		return modelView;
 	}
+	
+	@GetMapping("/job-application/{id}")
+	public ModelAndView viewJobApplication(@PathVariable("id") Long id,Principal principal, ModelAndView modelView) {
+		JobApplicantApplication jobApplication = jobApplicantApplicationRepo.findById(id)
+				.orElseThrow(() -> new JobApplicationNotFoundException());
+		modelView.addObject("jobApplication", jobApplication);
+		modelView.setViewName("employer/jobapplication-view");
+		return modelView;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

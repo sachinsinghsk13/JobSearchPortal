@@ -84,12 +84,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="application, itrState : ${applicants}">
+						<tr th:each="app, itrState : ${applicants}">
 							<td th:text="${itrState.count}"></td>
-							<td th:text="${application.applicant.name}"></td>
-							<td><a th:href="#" class="btn btn-link" th:text="${application.applicant.email}"></a></td>
-							<td><a href="#" class="btn btn-link">View Application</a></td>
-							<td><a href="#" class="btn btn-primary"> Get Resume</a></td>
+							<td th:text="${app.applicant.name}"></td>
+							<td><a th:href="|mailto:${app.applicant.email}|" class="btn btn-link" th:text="${app.applicant.email}"></a></td>
+							<td><a th:href="@{|/employers/job-application/${app.id}|}" class="btn btn-link">View Application</a></td>
+							<td><a href="#" class="btn btn-primary">Get Resume</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -109,5 +109,4 @@
 	</section>
 	<footer th:replace="~{footer}"></footer>
 </body>
-
 </html>

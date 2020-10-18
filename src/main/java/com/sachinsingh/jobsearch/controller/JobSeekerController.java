@@ -76,5 +76,13 @@ public class JobSeekerController {
 	}
 	
 	
+	@GetMapping("/profile")
+	public ModelAndView profile(Principal principal, ModelAndView modelView) {
+		JobSeeker jobSeeker = jobSeekerRepo.findByEmail(principal.getName())
+				.orElseThrow(() -> new JobSeekerNotFoundException());
+		modelView.addObject("jobSeeker", jobSeeker);
+		modelView.setViewName("jobseeker/jobseeker-profile");
+		return modelView;
+	}
 
 }

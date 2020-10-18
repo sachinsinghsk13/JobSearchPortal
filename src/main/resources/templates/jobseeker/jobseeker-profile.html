@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${pageTitle}"></title>
+<template th:replace="~{ui-component/bootstrap}"></template>
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav th:replace="~{abstract-navbar}"></nav>
+	 <section class="container">
+        <div class="row my-3 p-2 shadow-sm border">
+            <div class="col-12">
+                <h3 class="text-center p-3 text-dark">Job Seeker's Profile</h3>
+            </div>
+            <div class="col-lg-12">
+                <p><strong>Name: </strong> <span th:text="${jobSeeker.name}"></span></p>
+            </div>
+            <div class="col-lg-6">
+                <p><strong>Email: </strong> <a th:href="@{|mailto:${jobSeeker.email}|}" th:text="${jobSeeker.email}"></a></p>
+            </div>
+            <div class="col-lg-6">
+                <p><strong>Mobile Number: </strong> <span th:text="${jobSeeker.contactNumber}"></span></p>
+            </div>
+            <div class="col-lg-6">
+                <p><strong>Gender: </strong> <span th:text="${jobSeeker.gender}"></span></p>
+            </div>
+            <div class="col-lg-6">
+                <p><strong>Date Of Birth: </strong> <span th:text="${jobSeeker.dateOfBirth}"></span></p>
+            </div>
+            <div class="col-12">
+                <strong>Educational Details: </strong>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Education Type</th>
+                            <th>Board / University</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Percentage (%) </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr th:each="edu : ${jobSeeker.educationalDetails}">
+							<td th:text="edu.educationType"></td>
+							<td th:text="edu.boardOrUniversity"></td>
+							<td th:text="edu.startDate"></td>
+							<td th:text="edu.endDate"></td>
+							<td th:text="edu.percentage"></td>
+						</tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12">
+                <p><strong>Work Experience: </strong></p>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr th:each="we : ${jobSeeker.workExperiences}">
+							<td th:text="we.jobTitle"></td>
+							<td th:text="we.companyName"></td>
+							<td th:text="we.startDate"></td>
+							<td th:text="we.endDate"></td>
+							<td th:text="we.description"></td>
+						</tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12">
+                <p><strong>Skills: </strong>Spring Boot, Java Development</p>
+            </div>
+            <div class="col-12">
+                <strong>About: </strong>
+                <p>Aobut me</p>
+            </div>
+            <div class="col-12">
+                <strong>Resume: </strong>
+                <a href="#" class="btn btn-link">Download Resume</a>
+            </div>
+            <div class="col-12">
+                <a href="#" class="btn btn-primary">Edit Profile</a>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

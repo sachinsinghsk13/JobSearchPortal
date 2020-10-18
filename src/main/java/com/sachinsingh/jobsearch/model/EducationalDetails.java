@@ -24,7 +24,7 @@ public class EducationalDetails {
 	private LocalDate endDate;
 	
 	@Column(name = "percentage")
-	private Double pertentage;
+	private Double percentage;
 
 	public String getEducationType() {
 		return educationType;
@@ -58,12 +58,12 @@ public class EducationalDetails {
 		this.endDate = endDate;
 	}
 
-	public Double getPertentage() {
-		return pertentage;
+	public Double getPercentage() {
+		return percentage;
 	}
 
-	public void setPertentage(Double pertentage) {
-		this.pertentage = pertentage;
+	public void setPercentage(Double percentage) {
+		this.percentage = percentage;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class EducationalDetails {
 		result = prime * result + ((boardOrUniversity == null) ? 0 : boardOrUniversity.hashCode());
 		result = prime * result + ((educationType == null) ? 0 : educationType.hashCode());
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((pertentage == null) ? 0 : pertentage.hashCode());
+		result = prime * result + ((percentage == null) ? 0 : percentage.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
 	}
@@ -102,10 +102,10 @@ public class EducationalDetails {
 				return false;
 		} else if (!endDate.equals(other.endDate))
 			return false;
-		if (pertentage == null) {
-			if (other.pertentage != null)
+		if (percentage == null) {
+			if (other.percentage != null)
 				return false;
-		} else if (!pertentage.equals(other.pertentage))
+		} else if (!percentage.equals(other.percentage))
 			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
@@ -118,7 +118,7 @@ public class EducationalDetails {
 	@Override
 	public String toString() {
 		return "EducationalDetails [educationType=" + educationType + ", boardOrUniversity=" + boardOrUniversity
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", pertentage=" + pertentage + "]";
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", pertentage=" + percentage + "]";
 	}
 	
 }
